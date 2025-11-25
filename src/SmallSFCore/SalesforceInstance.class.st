@@ -18,6 +18,11 @@ SalesforceInstance class >> newUsername: aUsername password: aPassword consumerK
 	^anInstance.
 ]
 
+{ #category : 'circuit setup' }
+SalesforceInstance >> connect [
+	salesforceConnector := SalesforceConnector new.
+]
+
 { #category : 'initialization' }
 SalesforceInstance >> loginUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret [
 	aSalesforceLogin := SalesforceLogin 
