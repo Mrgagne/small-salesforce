@@ -16,7 +16,7 @@ Salesforce class >> loginUsername: aUsername password: aPassword consumerKey: aC
 	^sf
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Salesforce >> connectToInstanceUsername: aUsername 
     password: aPassword 
     consumerKey: aConsumerKey 
