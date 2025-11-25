@@ -3,8 +3,27 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'salesforceConnector',
-		'sandboxType'
+		'sandboxType',
+		'aSalesforceLogin'
 	],
 	#category : 'SmallSFCore',
 	#package : 'SmallSFCore'
 }
+
+{ #category : 'instance creation' }
+SalesforceInstance class >> newUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret [
+	|anInstance|
+	anInstance := self new.
+	anInstance loginUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret.
+	^anInstance.
+]
+
+{ #category : 'instance creation' }
+SalesforceInstance >> loginUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret [
+	aSalesforceLogin := SalesforceLogin 
+		newUsername: aUsername 
+		password: aPassword 
+		consumerKey: aConsumerKey 
+		consumerSecret: aConsumerSecret.
+		
+]
