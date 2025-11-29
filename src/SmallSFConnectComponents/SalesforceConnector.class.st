@@ -4,3 +4,11 @@ Class {
 	#category : 'SmallSFConnectComponents',
 	#package : 'SmallSFConnectComponents'
 }
+
+{ #category : 'utilities' }
+SalesforceConnector class >> connectWithLogin: aLogin [
+	| sfsession |
+	"do connection"
+	
+	^sfsession.
+]

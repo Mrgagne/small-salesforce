@@ -20,12 +20,12 @@ SalesforceInstance class >> newUsername: aUsername password: aPassword consumerK
 
 { #category : 'circuit setup' }
 SalesforceInstance >> connect [
-	salesforceConnector := SalesforceConnector new.
+	"going to send salesforceconnector class the connect message"
 ]
 
 { #category : 'initialization' }
 SalesforceInstance >> loginUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret [
-	aSalesforceLogin := SalesforceLogin 
+	aSalesforceLogin := SalesforcePasswordLogin 
 		newUsername: aUsername 
 		password: aPassword 
 		consumerKey: aConsumerKey 

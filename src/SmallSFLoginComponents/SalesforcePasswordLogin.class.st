@@ -1,19 +1,18 @@
 Class {
-	#name : 'SalesforceLogin',
-	#superclass : 'Object',
+	#name : 'SalesforcePasswordLogin',
+	#superclass : 'SalesforceLogin',
 	#instVars : [
 		'username',
 		'password',
-		'securityToken',
 		'consumerKey',
 		'consumerSecret'
 	],
-	#category : 'SmallSFCore',
-	#package : 'SmallSFCore'
+	#category : 'SmallSFLoginComponents',
+	#package : 'SmallSFLoginComponents'
 }
 
 { #category : 'instance creation' }
-SalesforceLogin class >> newUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret [
+SalesforcePasswordLogin class >> newUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret [
 	|login|
 	login := self new.
 	login username: aUsername.
@@ -24,21 +23,21 @@ SalesforceLogin class >> newUsername: aUsername password: aPassword consumerKey:
 ]
 
 { #category : 'initialization' }
-SalesforceLogin >> consumerKey: aConsumerKey [
+SalesforcePasswordLogin >> consumerKey: aConsumerKey [
 	consumerKey := aConsumerKey
 ]
 
 { #category : 'initialization' }
-SalesforceLogin >> consumerSecret: aConsumerSecret [
+SalesforcePasswordLogin >> consumerSecret: aConsumerSecret [
 	consumerSecret := aConsumerSecret
 ]
 
 { #category : 'initialization' }
-SalesforceLogin >> password: aPassword [
+SalesforcePasswordLogin >> password: aPassword [
 	password := aPassword
 ]
 
 { #category : 'initialization' }
-SalesforceLogin >> username: aUsername [
+SalesforcePasswordLogin >> username: aUsername [
 	username := aUsername
 ]
