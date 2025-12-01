@@ -9,6 +9,7 @@ Class {
 SalesforceConnector class >> connectWithLogin: aLogin [
 	| session aJsonResponse |
 	aJsonResponse := self performCallout: aLogin.
+	Transcript show: aJsonResponse.
 	session := SalesforceSession newFromJson: aJsonResponse.
 	^session.
 ]
@@ -16,13 +17,10 @@ SalesforceConnector class >> connectWithLogin: aLogin [
 { #category : 'utilities' }
 SalesforceConnector class >> performCallout: aLogin [
 	| client |
-	Transcript show: aLogin asFormUrlEncoded.
 	client := ZnClient new.
 	client 
 		url: 'https://kaufman4-dev-ed.develop.my.salesforce.com/services/oauth2/token';
-		entity: (ZnEntity 
-						with: aLogin asFormUrlEncoded
-						type: ZnMimeType applicationFormUrlEncoded).
-	client request inspect.
+		formAddAll: aLogin asDictionary;
+		post.
 	^ client response.
 ]
