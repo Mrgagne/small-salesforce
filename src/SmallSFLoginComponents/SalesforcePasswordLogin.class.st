@@ -24,17 +24,6 @@ SalesforcePasswordLogin class >> newUsername: aUsername password: aPassword cons
 	^login
 ]
 
-{ #category : 'accessing - structure variables' }
-SalesforcePasswordLogin >> asDictionary [
-	^ { 
-		'grant_type' -> 'password'.
-		'client_id' -> consumerKey.
-		'client_secret' -> consumerSecret.
-		'username' -> username.
-		'password' -> self fullPassword.
-	 } asDictionary 
-]
-
 { #category : 'accessing' }
 SalesforcePasswordLogin >> consumerKey: aConsumerKey [
 	consumerKey := aConsumerKey
@@ -55,6 +44,17 @@ SalesforcePasswordLogin >> fullPassword [
 { #category : 'accessing' }
 SalesforcePasswordLogin >> password: aPassword [
 	password := aPassword
+]
+
+{ #category : 'accessing' }
+SalesforcePasswordLogin >> requestFields [
+	^ { 
+		'grant_type' -> 'password'.
+		'client_id' -> consumerKey.
+		'client_secret' -> consumerSecret.
+		'username' -> username.
+		'password' -> self fullPassword.
+	 } asDictionary 
 ]
 
 { #category : 'accessing' }

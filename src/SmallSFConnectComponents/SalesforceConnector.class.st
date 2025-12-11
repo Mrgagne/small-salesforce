@@ -20,7 +20,7 @@ SalesforceConnector class >> performCallout: aLogin [
 	client := ZnClient new.
 	client 
 		url: 'https://kaufman4-dev-ed.develop.my.salesforce.com/services/oauth2/token';
-		formAddAll: aLogin asDictionary;
+		formAddAll: aLogin requestFields;
 		post.
-	^ client response.
+	^ client response entity contents.
 ]
