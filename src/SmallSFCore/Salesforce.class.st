@@ -9,10 +9,10 @@ Class {
 }
 
 { #category : 'instance creation' }
-Salesforce class >> loginUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret securityToken: aSecurityToken [
+Salesforce class >> loginUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret securityToken: aSecurityToken domain: aDomain [
 	|sf|
 	sf := self new.
-	sf connectToInstanceUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret securityToken: aSecurityToken.
+	sf connectToInstanceUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret securityToken: aSecurityToken domain: aDomain.
 	^sf
 ]
 
@@ -26,13 +26,17 @@ Salesforce >> connectToInstanceUsername: aUsername
     password: aPassword 
     consumerKey: aConsumerKey 
     consumerSecret: aConsumerSecret
-	 securityToken: aSecurityToken [
-
+	 securityToken: aSecurityToken
+	 domain: aDomain [
+	|aFullUrl|
+	
+	aFullUrl := SalesforceInstance urlFromDomain: aDomain.
     salesforceInstance := SalesforceInstance 
         newUsername: aUsername 
         password: aPassword 
         consumerKey: aConsumerKey 
         consumerSecret: aConsumerSecret
-		  securityToken: aSecurityToken.
+		  securityToken: aSecurityToken
+		  domain: aFullUrl.
 
 ]

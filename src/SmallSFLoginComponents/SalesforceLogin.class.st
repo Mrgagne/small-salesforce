@@ -5,7 +5,7 @@ Class {
 	#package : 'SmallSFLoginComponents'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 SalesforceLogin >> requestFields [
 	self subclassResponsibility.
 ]

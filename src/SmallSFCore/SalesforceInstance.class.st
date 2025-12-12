@@ -2,7 +2,7 @@ Class {
 	#name : 'SalesforceInstance',
 	#superclass : 'Object',
 	#instVars : [
-		'sandboxType',
+		'domain',
 		'aSalesforceLogin'
 	],
 	#category : 'SmallSFCore',
@@ -10,17 +10,28 @@ Class {
 }
 
 { #category : 'instance creation' }
-SalesforceInstance class >> newUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret securityToken: aSecurityToken [
+SalesforceInstance class >> newUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret securityToken: aSecurityToken domain: aDomain [
 	|anInstance|
 	anInstance := self new.
+	anInstance domain: aDomain.
 	anInstance loginUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret securityToken: aSecurityToken.
 	^anInstance.
+]
+
+{ #category : 'helper' }
+SalesforceInstance class >> urlFromDomain: aDomain [
+	
 ]
 
 { #category : 'circuit setup' }
 SalesforceInstance >> connect [
 	"going to send salesforceconnector class the connect message"
 	SalesforceConnector connectWithLogin: aSalesforceLogin.
+]
+
+{ #category : 'private - accessing' }
+SalesforceInstance >> domain: aDomain [
+	domain := aDomain.
 ]
 
 { #category : 'initialization' }
