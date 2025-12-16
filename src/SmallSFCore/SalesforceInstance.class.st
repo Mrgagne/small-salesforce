@@ -2,6 +2,7 @@ Class {
 	#name : 'SalesforceInstance',
 	#superclass : 'Object',
 	#instVars : [
+		'aSession',
 		'domain',
 		'aSalesforceLogin'
 	],
@@ -20,13 +21,26 @@ SalesforceInstance class >> newUsername: aUsername password: aPassword consumerK
 
 { #category : 'helper' }
 SalesforceInstance class >> urlFromDomain: aDomain [
-	
+	| fullUrl |
+
+    "If the input is already a full URL, return it immediately (robustness)"
+    (aDomain beginsWith: 'http') 
+        ifTrue: [ ^ aDomain ]. 
+
+    fullUrl := 'https://'.
+
+    ^ aDomain caseOf: {
+        ['login'] -> [ fullUrl, 'login.salesforce.com' ].
+        ['test']  -> [ fullUrl, 'test.salesforce.com' ].
+    } otherwise: [
+        "Default: Assume it is a 'My Domain' identifier"
+        fullUrl, aDomain, '.my.salesforce.com'
+    ]
 ]
 
 { #category : 'circuit setup' }
 SalesforceInstance >> connect [
-	"going to send salesforceconnector class the connect message"
-	SalesforceConnector connectWithLogin: aSalesforceLogin.
+	aSession := SalesforceConnector connectWithLogin: aSalesforceLogin domain: domain.
 ]
 
 { #category : 'private - accessing' }
