@@ -28,3 +28,15 @@ SalesforceConnector class >> performCallout: aLogin domain: aDomain [
 		post.
 	^ client response entity contents.
 ]
+
+{ #category : 'as yet unclassified' }
+SalesforceConnector class >> post: aUrl body: aBody sessionId: aSessionId [
+	| client |
+	client := ZnClient new.
+	client 
+		url: aUrl;
+		headerAt: 'Authorization' put: 'Bearer ', aSessionId;
+		headerAt: 'ContentType' put: 'application/json';
+		contents: (NeoJSONWriter toString: aBody);
+		post.
+]

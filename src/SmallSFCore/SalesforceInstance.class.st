@@ -42,21 +42,26 @@ SalesforceInstance >> apiDataPrefix [
 	^ '/services/data/' , self apiVersion , '/sobjects'.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private - accessing' }
 SalesforceInstance >> apiVersion [
 	^ apiVersion
 ]
 
-{ #category : 'circuit setup' }
+{ #category : 'actions' }
 SalesforceInstance >> connect [
 	aSession := SalesforceConnector connectWithLogin: aSalesforceLogin domain: domain.
 ]
 
 { #category : 'actions' }
-SalesforceInstance >> create: anObject [
-	| fullUrl |
-	fullUrl := aSession instanceUrl.
-
+SalesforceInstance >> create: anSObject [
+	| fullUrl body |
+	fullUrl := aSession instanceUrl, self urlFor: anSObject.
+	body := anSObject payload.
+	
+	SalesforceConnector post: fullUrl body: body sessionId: aSession sessionId.
+	
+	
+	
 ]
 
 { #category : 'private - accessing' }
@@ -73,4 +78,9 @@ SalesforceInstance >> loginUsername: aUsername password: aPassword consumerKey: 
 		consumerSecret: aConsumerSecret
 		securityToken: aSecurityToken.
 		
+]
+
+{ #category : 'private - accessing' }
+SalesforceInstance >> urlFor: anSObject [
+	^ self apiDataPrefix , '/' , anSObject sObjectType.
 ]
