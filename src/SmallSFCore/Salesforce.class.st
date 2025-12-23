@@ -40,3 +40,8 @@ Salesforce >> connectToInstanceUsername: aUsername
 		  domain: aFullUrl.
 
 ]
+
+{ #category : 'actions' }
+Salesforce >> create: anObject [
+	salesforceInstance create: anObject.
+]

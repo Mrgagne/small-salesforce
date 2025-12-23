@@ -34,6 +34,11 @@ SalesforceSession >> destructureJson [
 
 ]
 
+{ #category : 'accessing' }
+SalesforceSession >> instanceUrl [
+	^ instanceUrl.
+]
+
 { #category : 'private - accessing' }
 SalesforceSession >> instanceUrl: anInstanceUrl [
 	instanceUrl := anInstanceUrl
@@ -47,6 +52,11 @@ SalesforceSession >> issuedAt: anIssuedTime [
 { #category : 'setter' }
 SalesforceSession >> jsonResponse: aJsonResponse [
 	jsonResponse := aJsonResponse
+]
+
+{ #category : 'accessing' }
+SalesforceSession >> sessionId [
+	^ sessionId.
 ]
 
 { #category : 'private - accessing' }

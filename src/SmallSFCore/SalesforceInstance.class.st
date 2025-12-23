@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'aSession',
 		'domain',
-		'aSalesforceLogin'
+		'aSalesforceLogin',
+		'apiVersion'
 	],
 	#category : 'SmallSFCore',
 	#package : 'SmallSFCore'
@@ -23,7 +24,6 @@ SalesforceInstance class >> newUsername: aUsername password: aPassword consumerK
 SalesforceInstance class >> urlFromDomain: aDomain [
 	| fullUrl |
 
-    "If the input is already a full URL, return it immediately (robustness)"
     (aDomain beginsWith: 'http') 
         ifTrue: [ ^ aDomain ]. 
 
@@ -33,14 +33,30 @@ SalesforceInstance class >> urlFromDomain: aDomain [
         ['login'] -> [ fullUrl, 'login.salesforce.com' ].
         ['test']  -> [ fullUrl, 'test.salesforce.com' ].
     } otherwise: [
-        "Default: Assume it is a 'My Domain' identifier"
         fullUrl, aDomain, '.my.salesforce.com'
     ]
+]
+
+{ #category : 'private - accessing' }
+SalesforceInstance >> apiDataPrefix [
+	^ '/services/data/' , self apiVersion , '/sobjects'.
+]
+
+{ #category : 'as yet unclassified' }
+SalesforceInstance >> apiVersion [
+	^ apiVersion
 ]
 
 { #category : 'circuit setup' }
 SalesforceInstance >> connect [
 	aSession := SalesforceConnector connectWithLogin: aSalesforceLogin domain: domain.
+]
+
+{ #category : 'actions' }
+SalesforceInstance >> create: anObject [
+	| fullUrl |
+	fullUrl := aSession instanceUrl.
+
 ]
 
 { #category : 'private - accessing' }
