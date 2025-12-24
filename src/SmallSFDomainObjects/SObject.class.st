@@ -13,7 +13,7 @@ Class {
 { #category : 'accessing' }
 SObject >> at: aFieldName put: aValue [
 	self fields at: aFieldName put: aValue.
-	self dirtyFields add: aValue.
+	self dirtyFields add: aFieldName.
 ]
 
 { #category : 'accessing' }

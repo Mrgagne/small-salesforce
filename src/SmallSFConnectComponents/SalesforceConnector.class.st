@@ -37,6 +37,7 @@ SalesforceConnector class >> post: aUrl body: aBody sessionId: aSessionId [
 		url: aUrl;
 		headerAt: 'Authorization' put: 'Bearer ', aSessionId;
 		headerAt: 'ContentType' put: 'application/json';
-		contents: (NeoJSONWriter toString: aBody);
+		entity: (ZnEntity json: (NeoJSONWriter toString: aBody));
 		post.
+	^ client response entity contents.
 ]

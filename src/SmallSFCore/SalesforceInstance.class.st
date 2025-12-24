@@ -39,12 +39,12 @@ SalesforceInstance class >> urlFromDomain: aDomain [
 
 { #category : 'private - accessing' }
 SalesforceInstance >> apiDataPrefix [
-	^ '/services/data/' , self apiVersion , '/sobjects'.
+    ^ '/services/data/{1}/sobjects' format: { self apiVersion }
 ]
 
 { #category : 'private - accessing' }
 SalesforceInstance >> apiVersion [
-	^ apiVersion
+	^ apiVersion ifNil: [ ^ 'v64.0' ].
 ]
 
 { #category : 'actions' }
@@ -55,7 +55,7 @@ SalesforceInstance >> connect [
 { #category : 'actions' }
 SalesforceInstance >> create: anSObject [
 	| fullUrl body |
-	fullUrl := aSession instanceUrl, self urlFor: anSObject.
+	fullUrl := aSession instanceUrl, (self urlFor: anSObject).
 	body := anSObject payload.
 	
 	SalesforceConnector post: fullUrl body: body sessionId: aSession sessionId.
