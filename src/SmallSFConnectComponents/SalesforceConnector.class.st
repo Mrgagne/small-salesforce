@@ -29,7 +29,7 @@ SalesforceConnector class >> performCallout: aLogin domain: aDomain [
 	^ client response entity contents.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'utilities' }
 SalesforceConnector class >> post: aUrl body: aBody sessionId: aSessionId [
 	| client |
 	client := ZnClient new.
