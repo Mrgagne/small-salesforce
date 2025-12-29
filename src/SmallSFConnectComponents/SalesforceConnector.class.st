@@ -31,7 +31,7 @@ SalesforceConnector class >> performCallout: aLogin domain: aDomain [
 
 { #category : 'utilities' }
 SalesforceConnector class >> post: aUrl body: aBody sessionId: aSessionId [
-	| client |
+	| client sfResponse |
 	client := ZnClient new.
 	client 
 		url: aUrl;
@@ -39,5 +39,6 @@ SalesforceConnector class >> post: aUrl body: aBody sessionId: aSessionId [
 		headerAt: 'ContentType' put: 'application/json';
 		entity: (ZnEntity json: (NeoJSONWriter toString: aBody));
 		post.
-	^ client response entity contents.
+	sfResponse := SalesforceResponse new: client.
+	sfResponse.
 ]
