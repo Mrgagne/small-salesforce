@@ -27,6 +27,11 @@ SObject >> fields [
 ]
 
 { #category : 'accessing' }
+SObject >> id: anId [
+	fields at: 'Id' put: anId.
+]
+
+{ #category : 'accessing' }
 SObject >> payload [
     | data |
     data := Dictionary new.

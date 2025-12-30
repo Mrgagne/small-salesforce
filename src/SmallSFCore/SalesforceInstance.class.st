@@ -54,13 +54,16 @@ SalesforceInstance >> connect [
 
 { #category : 'actions' }
 SalesforceInstance >> create: anSObject [
-	| fullUrl body |
+	| fullUrl body sfResponse |
 	fullUrl := aSession instanceUrl, (self urlFor: anSObject).
 	body := anSObject payload.
 	
-	SalesforceConnector post: fullUrl body: body sessionId: aSession sessionId.
+	sfResponse := SalesforceConnector post: fullUrl body: body sessionId: aSession sessionId.
 	
-	
+	(sfResponse wasSuccessful)
+		ifTrue: [ 
+			anSObject id: sfResponse id.
+		].
 	
 ]
 

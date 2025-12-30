@@ -31,14 +31,16 @@ SalesforceConnector class >> performCallout: aLogin domain: aDomain [
 
 { #category : 'utilities' }
 SalesforceConnector class >> post: aUrl body: aBody sessionId: aSessionId [
-	| client sfResponse |
+	| client sfResponse jsonResponse statusCode |
 	client := ZnClient new.
 	client 
 		url: aUrl;
 		headerAt: 'Authorization' put: 'Bearer ', aSessionId;
-		headerAt: 'ContentType' put: 'application/json';
+		headerAt: 'Content-Type' put: 'application/json';
 		entity: (ZnEntity json: (NeoJSONWriter toString: aBody));
 		post.
-	sfResponse := SalesforceResponse new: client.
-	sfResponse.
+	jsonResponse := NeoJSONReader fromString: client response entity string.
+	statusCode := client response statusLine code.
+	sfResponse := SalesforceResponse newJson: jsonResponse statusCode: statusCode.
+	^ sfResponse.
 ]
