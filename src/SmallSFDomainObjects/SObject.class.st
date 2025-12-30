@@ -26,14 +26,14 @@ SObject class >> newFromDictionary: aDictionary [
 SObject class >> newFromDictionary: aDictionary sObjectType: aType [
 	| aSObject |
 	aSObject := self new.
-	aSObject assignFromDicationary: aDictionary copy.
+	aSObject assignFromDictionary: aDictionary copy.
 	aSObject attributes: (aDictionary at: 'attributes' ifAbsent: [ nil ]).
 	aSObject sObjectType: aType.
 	^ aSObject.
 ]
 
 { #category : 'accessing' }
-SObject >> assignFromDicationary: aDictionary [
+SObject >> assignFromDictionary: aDictionary [
 	self id: (aDictionary at: 'id' ifAbsent: [ nil ]).
 	self fields: (self pruneFields: aDictionary copy).
 	
