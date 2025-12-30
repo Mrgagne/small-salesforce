@@ -5,7 +5,8 @@ Class {
 		'fields',
 		'dirtyFields',
 		'sObjectType',
-		'id'
+		'id',
+		'attributes'
 	],
 	#category : 'SmallSFDomainObjects',
 	#package : 'SmallSFDomainObjects'
@@ -20,7 +21,8 @@ SObject class >> defaultSObjectType [
 SObject class >> newFromDictionary: aDictionary sObjectType: aType [
 	| aSObject |
 	aSObject := self new.
-	"Assign fields from dictionary"
+	aSObject fields: aDictionary copy.
+	aSObject attributes: (aDictionary at: 'attributes' ifAbsent: [ nil ]).
 	aSObject sObjectType: aType.
 	^ aSObject.
 ]
@@ -29,6 +31,13 @@ SObject class >> newFromDictionary: aDictionary sObjectType: aType [
 SObject >> at: aFieldName put: aValue [
 	self fields at: aFieldName put: aValue.
 	self dirtyFields add: aFieldName.
+]
+
+{ #category : 'accessing' }
+SObject >> attributes: aDictionary [
+	attributes := aDictionary 
+        ifNil: [ Dictionary new ] 
+        ifNotNil: [ aDictionary copy ].
 ]
 
 { #category : 'accessing' }
@@ -42,6 +51,15 @@ SObject >> fields [
 ]
 
 { #category : 'accessing' }
+SObject >> fields: aDictionary [
+	| cleanFields | 
+	cleanFields := aDictionary copy.
+	cleanFields removeKey: 'attributes' ifAbsent: [ "does nothing, its gone already." ].
+	fields := cleanFields.
+
+]
+
+{ #category : 'accessing' }
 SObject >> id: anId [
 	id := anId.
 	fields at: 'Id' put: anId.
@@ -52,13 +70,9 @@ SObject >> payload [
     | data |
     data := Dictionary new.
     
-    "Go through every name in our 'Shopping List'"
     self dirtyFields do: [ :fieldName | 
         | val |
-        "Go look up the actual value in the 'Store' using that name"
         val := self fields at: fieldName.
-        
-        "Put it into the final JSON dictionary"
         data at: fieldName put: val ].
         
     ^ data
