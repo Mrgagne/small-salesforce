@@ -18,6 +18,11 @@ SObject class >> defaultSObjectType [
 ]
 
 { #category : 'instance creation' }
+SObject class >> newFromDictionary: aDictionary [
+    ^ self newFromDictionary: aDictionary sObjectType: self defaultSObjectType
+]
+
+{ #category : 'instance creation' }
 SObject class >> newFromDictionary: aDictionary sObjectType: aType [
 	| aSObject |
 	aSObject := self new.

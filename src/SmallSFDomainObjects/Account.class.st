@@ -17,10 +17,3 @@ Account class >> new [
 	anAccount sObjectType: self defaultSObjectType.
 	^ anAccount.
 ]
-
-{ #category : 'instance creation' }
-Account class >> newFromDictionary: aDictionary [
-	| anAccount |
-	anAccount := super newFromDictionary: aDictionary sObjectType: self defaultSObjectType.
-	^ anAccount.
-]
