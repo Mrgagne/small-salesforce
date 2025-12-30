@@ -21,10 +21,23 @@ SObject class >> defaultSObjectType [
 SObject class >> newFromDictionary: aDictionary sObjectType: aType [
 	| aSObject |
 	aSObject := self new.
-	aSObject fields: aDictionary copy.
+	aSObject assignFromDicationary: aDictionary copy.
 	aSObject attributes: (aDictionary at: 'attributes' ifAbsent: [ nil ]).
 	aSObject sObjectType: aType.
 	^ aSObject.
+]
+
+{ #category : 'accessing' }
+SObject >> assignFromDicationary: aDictionary [
+	self id: (aDictionary at: 'id' ifAbsent: [ nil ]).
+	self fields: (self pruneFields: aDictionary copy).
+	
+	dirtyFields := self isNew
+		ifTrue: [ (self fields) keys asSet ] 
+		ifFalse: [ Set new ].
+	
+	
+
 ]
 
 { #category : 'accessing' }
@@ -45,24 +58,33 @@ SObject >> dirtyFields [
 	^ dirtyFields ifNil: [ dirtyFields := Set new ].
 ]
 
-{ #category : 'accessing' }
+{ #category : 'private - accessing' }
 SObject >> fields [
-	^ fields ifNil: [ fields := Dictionary new ].
+    fields ifNil: [ fields := Dictionary new ].
+    ^ fields
+]
+
+{ #category : 'private - accessing' }
+SObject >> fields: aDictionary [
+	fields := aDictionary copy.
+	
+	
+
 ]
 
 { #category : 'accessing' }
-SObject >> fields: aDictionary [
-	| cleanFields | 
-	cleanFields := aDictionary copy.
-	cleanFields removeKey: 'attributes' ifAbsent: [ "does nothing, its gone already." ].
-	fields := cleanFields.
-
+SObject >> id [
+	^ id.
 ]
 
 { #category : 'accessing' }
 SObject >> id: anId [
 	id := anId.
-	fields at: 'Id' put: anId.
+]
+
+{ #category : 'testing' }
+SObject >> isNew [
+    ^ self id isNil
 ]
 
 { #category : 'accessing' }
@@ -76,6 +98,16 @@ SObject >> payload [
         data at: fieldName put: val ].
         
     ^ data
+]
+
+{ #category : 'private - removing' }
+SObject >> pruneFields: aDictionary [
+	| cleanFields |
+	cleanFields := aDictionary copy.
+	cleanFields removeKey: 'attributes' ifAbsent: [ "does nothing, its gone already." ].
+	cleanFields removeKey: 'id' ifAbsent: [ "does nothing already not there" ].
+	^ cleanFields.
+	
 ]
 
 { #category : 'accessing' }
