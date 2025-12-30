@@ -14,12 +14,18 @@ Class {
 
 { #category : 'helper' }
 SObject class >> defaultSObjectType [
-	self subclassResponsibility.
+	^ nil.
 ]
 
 { #category : 'instance creation' }
 SObject class >> newFromDictionary: aDictionary [
-    ^ self newFromDictionary: aDictionary sObjectType: self defaultSObjectType
+    | type |
+    type := self defaultSObjectType.
+    
+    (type isNil or: [ type isEmpty ]) 
+        ifTrue: [ self error: self name, ' must implement defaultSObjectType to use this constructor.' ].
+
+    ^ self newFromDictionary: aDictionary sObjectType: type
 ]
 
 { #category : 'instance creation' }
