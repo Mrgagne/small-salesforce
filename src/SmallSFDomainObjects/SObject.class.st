@@ -4,11 +4,26 @@ Class {
 	#instVars : [
 		'fields',
 		'dirtyFields',
-		'sObjectType'
+		'sObjectType',
+		'id'
 	],
 	#category : 'SmallSFDomainObjects',
 	#package : 'SmallSFDomainObjects'
 }
+
+{ #category : 'helper' }
+SObject class >> defaultSObjectType [
+	self subclassResponsibility.
+]
+
+{ #category : 'instance creation' }
+SObject class >> newFromDictionary: aDictionary sObjectType: aType [
+	| aSObject |
+	aSObject := self new.
+	"Assign fields from dictionary"
+	aSObject sObjectType: aType.
+	^ aSObject.
+]
 
 { #category : 'accessing' }
 SObject >> at: aFieldName put: aValue [
@@ -28,6 +43,7 @@ SObject >> fields [
 
 { #category : 'accessing' }
 SObject >> id: anId [
+	id := anId.
 	fields at: 'Id' put: anId.
 ]
 

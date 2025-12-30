@@ -5,10 +5,15 @@ Class {
 	#package : 'SmallSFDomainObjects'
 }
 
+{ #category : 'helper' }
+Account class >> defaultSObjectType [
+	^ 'Account'
+]
+
 { #category : 'instance creation' }
 Account class >> new [
 	| anAccount |
 	anAccount := super new.
-	anAccount sObjectType: 'Account'.
+	anAccount sObjectType: self defaultSObjectType.
 	^ anAccount.
 ]

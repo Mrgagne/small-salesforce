@@ -30,8 +30,6 @@ SalesforceSession >> destructureJson [
 	self issuedAt: (json at: 'issued_at').
 	
 	^self
-	
-
 ]
 
 { #category : 'accessing' }
