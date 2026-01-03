@@ -1,5 +1,5 @@
 Class {
-	#name : 'SalesforceDomain',
+	#name : 'SalesforceUrl',
 	#superclass : 'Object',
 	#category : 'SmallSFConnectComponents',
 	#package : 'SmallSFConnectComponents'

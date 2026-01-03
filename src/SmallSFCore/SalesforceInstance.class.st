@@ -33,7 +33,7 @@ SalesforceInstance >> apiVersion [
 { #category : 'actions' }
 SalesforceInstance >> connect [
 	|aFullUrl|
-	aFullUrl := SalesforceLoginDomain urlFor: domain.
+	aFullUrl := SalesforceLoginUrl urlFor: domain.
 	aSession := SalesforceConnector connectWithLogin: aSalesforceLogin fullUrl: aFullUrl.
 ]
 
