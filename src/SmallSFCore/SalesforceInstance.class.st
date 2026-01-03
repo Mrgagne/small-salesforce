@@ -21,11 +21,6 @@ SalesforceInstance class >> newUsername: aUsername password: aPassword consumerK
 ]
 
 { #category : 'private - accessing' }
-SalesforceInstance >> apiDataPrefix [
-    ^ '/services/data/{1}/sobjects' format: { self apiVersion }
-]
-
-{ #category : 'private - accessing' }
 SalesforceInstance >> apiVersion [
 	^ apiVersion ifNil: [ ^ 'v64.0' ].
 ]
@@ -38,16 +33,16 @@ SalesforceInstance >> connect [
 ]
 
 { #category : 'actions' }
-SalesforceInstance >> create: anSObject [
+SalesforceInstance >> create: aSObject [
 	| fullUrl body sfResponse |
-	fullUrl := aSession instanceUrl, (self urlFor: anSObject).
-	body := anSObject payload.
+	fullUrl := SalesforceSObjectUrl urlForSObject: aSObject session: aSession apiVersion: self apiVersion.
+	body := aSObject payload.
 	
 	sfResponse := SalesforceConnector post: fullUrl body: body sessionId: aSession sessionId.
 	
 	(sfResponse wasSuccessful)
 		ifTrue: [ 
-			anSObject id: sfResponse id.
+			aSObject id: sfResponse id.
 		].
 	
 ]
@@ -66,9 +61,4 @@ SalesforceInstance >> loginUsername: aUsername password: aPassword consumerKey: 
 		consumerSecret: aConsumerSecret
 		securityToken: aSecurityToken.
 		
-]
-
-{ #category : 'private - accessing' }
-SalesforceInstance >> urlFor: anSObject [
-	^ self apiDataPrefix , '/' , anSObject sObjectType.
 ]
