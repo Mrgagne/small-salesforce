@@ -20,23 +20,6 @@ SalesforceInstance class >> newUsername: aUsername password: aPassword consumerK
 	^anInstance.
 ]
 
-{ #category : 'helper' }
-SalesforceInstance class >> urlFromDomain: aDomain [
-	| fullUrl |
-
-    (aDomain beginsWith: 'http') 
-        ifTrue: [ ^ aDomain ]. 
-
-    fullUrl := 'https://'.
-
-    ^ aDomain caseOf: {
-        ['login'] -> [ fullUrl, 'login.salesforce.com' ].
-        ['test']  -> [ fullUrl, 'test.salesforce.com' ].
-    } otherwise: [
-        fullUrl, aDomain, '.my.salesforce.com'
-    ]
-]
-
 { #category : 'private - accessing' }
 SalesforceInstance >> apiDataPrefix [
     ^ '/services/data/{1}/sobjects' format: { self apiVersion }
@@ -49,7 +32,9 @@ SalesforceInstance >> apiVersion [
 
 { #category : 'actions' }
 SalesforceInstance >> connect [
-	aSession := SalesforceConnector connectWithLogin: aSalesforceLogin domain: domain.
+	|aFullUrl|
+	aFullUrl := SalesforceLoginDomain urlFor: domain.
+	aSession := SalesforceConnector connectWithLogin: aSalesforceLogin fullUrl: aFullUrl.
 ]
 
 { #category : 'actions' }

@@ -27,17 +27,15 @@ Salesforce >> connectToInstanceUsername: aUsername
     consumerKey: aConsumerKey 
     consumerSecret: aConsumerSecret
 	 securityToken: aSecurityToken
-	 domain: aDomain [
-	|aFullUrl|
-	
-	aFullUrl := SalesforceInstance urlFromDomain: aDomain.
+	 domain: aDomain [	
+
     salesforceInstance := SalesforceInstance 
         newUsername: aUsername 
         password: aPassword 
         consumerKey: aConsumerKey 
         consumerSecret: aConsumerSecret
 		  securityToken: aSecurityToken
-		  domain: aFullUrl.
+		  domain: aDomain.
 
 ]
 

@@ -6,24 +6,19 @@ Class {
 }
 
 { #category : 'utilities' }
-SalesforceConnector class >> connectWithLogin: aLogin domain: aDomain [
+SalesforceConnector class >> connectWithLogin: aLogin fullUrl: aFullUrl [
 	| session aJsonResponse |
-	aJsonResponse := self performCallout: aLogin domain: aDomain.
+	aJsonResponse := self performCallout: aLogin fullUrl: aFullUrl.
 	session := SalesforceSession newFromJson: aJsonResponse.
 	^ session.
 ]
 
-{ #category : 'accessing - classes' }
-SalesforceConnector class >> loginEndpointPath [
-	^ '/services/oauth2/token'.
-]
-
 { #category : 'utilities' }
-SalesforceConnector class >> performCallout: aLogin domain: aDomain [
+SalesforceConnector class >> performCallout: aLogin fullUrl: aFullUrl [
 	| client |
 	client := ZnClient new.
 	client 
-		url: aDomain, self loginEndpointPath;
+		url: aFullUrl;
 		formAddAll: aLogin requestFields;
 		post.
 	^ client response entity contents.
