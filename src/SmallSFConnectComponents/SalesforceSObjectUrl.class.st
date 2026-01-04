@@ -11,6 +11,13 @@ SalesforceSObjectUrl class >> sObjectUrlPrefix: aVersion [
 ]
 
 { #category : 'accessing' }
-SalesforceSObjectUrl class >> urlForSObject: aSObject session: aSession apiVersion: aVersion [
-	^ (aSession instanceUrl), (self sObjectUrlPrefix: aVersion), '/', (aSObject sObjectType).
+SalesforceSObjectUrl class >> urlForSObject: aSObjectType session: aSession apiVersion: aVersion [
+	^ (aSession instanceUrl), (self sObjectUrlPrefix: aVersion), '/', aSObjectType.
+]
+
+{ #category : 'accessing' }
+SalesforceSObjectUrl class >> urlForSObjectQuery: sObjectType session: aSession apiVersion: apiVersion ids: idList [
+	| fullUrl |
+	fullUrl := (self urlForSObject: sObjectType session: aSession  apiVersion: apiVersion).
+	^ fullUrl, '?=', (idList joinUsing: ',').
 ]

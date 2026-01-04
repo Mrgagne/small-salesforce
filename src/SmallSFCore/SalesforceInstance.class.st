@@ -35,7 +35,7 @@ SalesforceInstance >> connect [
 { #category : 'actions' }
 SalesforceInstance >> create: aSObject [
 	| fullUrl body sfResponse |
-	fullUrl := SalesforceSObjectUrl urlForSObject: aSObject session: aSession apiVersion: self apiVersion.
+	fullUrl := SalesforceSObjectUrl urlForSObject: (aSObject sObjectType) session: aSession apiVersion: self apiVersion.
 	body := aSObject payload.
 	
 	sfResponse := SalesforceConnector post: fullUrl body: body sessionId: aSession sessionId.
@@ -50,6 +50,12 @@ SalesforceInstance >> create: aSObject [
 { #category : 'private - accessing' }
 SalesforceInstance >> domain: aDomain [
 	domain := aDomain.
+]
+
+{ #category : 'private' }
+SalesforceInstance >> find: sObjectType withCollection: idList [
+	| fullUrl |
+	fullUrl := SalesforceSObjectUrl urlForSObjectQuery: sObjectType session: aSession apiVersion: (self apiVersion ) ids: idList.
 ]
 
 { #category : 'initialization' }

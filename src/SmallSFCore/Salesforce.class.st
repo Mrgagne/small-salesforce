@@ -43,3 +43,13 @@ Salesforce >> connectToInstanceUsername: aUsername
 Salesforce >> create: anObject [
 	salesforceInstance create: anObject.
 ]
+
+{ #category : 'actions' }
+Salesforce >> find: sObjectType with: anId [
+	^ (self find: sObjectType withCollection: (OrderedCollection with: anId)).
+]
+
+{ #category : 'actions' }
+Salesforce >> find: sObjectType withCollection: idList [
+	^ salesforceInstance find: sObjectType withCollection: idList copy.
+]
