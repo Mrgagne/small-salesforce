@@ -45,11 +45,6 @@ Salesforce >> create: anObject [
 ]
 
 { #category : 'actions' }
-Salesforce >> find: sObjectType with: anId [
-	^ (self find: sObjectType withCollection: (OrderedCollection with: anId)).
-]
-
-{ #category : 'actions' }
-Salesforce >> find: sObjectType withCollection: idList [
-	^ salesforceInstance find: sObjectType withCollection: idList copy.
+Salesforce >> find: aSObject withId: anId [
+	^ (salesforceInstance find: aSObject withId: anId).
 ]

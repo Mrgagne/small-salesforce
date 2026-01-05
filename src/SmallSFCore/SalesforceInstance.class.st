@@ -52,10 +52,16 @@ SalesforceInstance >> domain: aDomain [
 	domain := aDomain.
 ]
 
-{ #category : 'private' }
-SalesforceInstance >> find: sObjectType withCollection: idList [
-	| fullUrl |
-	fullUrl := SalesforceSObjectUrl urlForSObjectQuery: sObjectType session: aSession apiVersion: (self apiVersion ) ids: idList.
+{ #category : 'actions' }
+SalesforceInstance >> find: aSObject withId: anId [
+	| fullUrl sfResponse |
+	fullUrl := SalesforceSObjectUrl urlForSObjectFind: aSObject sObjectType session: aSession apiVersion: (self apiVersion ) id: anId.
+	sfResponse := SalesforceConnector get: fullUrl sessionId: aSession sessionId.
+	
+	(sfResponse wasSuccessful)
+		ifTrue: [ 
+			aSObject id: sfResponse id.
+		].
 ]
 
 { #category : 'initialization' }

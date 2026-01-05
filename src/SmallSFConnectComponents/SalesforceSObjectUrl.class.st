@@ -16,8 +16,8 @@ SalesforceSObjectUrl class >> urlForSObject: aSObjectType session: aSession apiV
 ]
 
 { #category : 'accessing' }
-SalesforceSObjectUrl class >> urlForSObjectQuery: sObjectType session: aSession apiVersion: apiVersion ids: idList [
+SalesforceSObjectUrl class >> urlForSObjectFind: sObjectType session: aSession apiVersion: apiVersion id: anId [
 	| fullUrl |
 	fullUrl := (self urlForSObject: sObjectType session: aSession  apiVersion: apiVersion).
-	^ fullUrl, '?=', (idList joinUsing: ',').
+	^ fullUrl, '/', anId.
 ]

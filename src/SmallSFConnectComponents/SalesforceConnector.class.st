@@ -14,6 +14,21 @@ SalesforceConnector class >> connectWithLogin: aLogin fullUrl: aFullUrl [
 ]
 
 { #category : 'utilities' }
+SalesforceConnector class >> get: aFullUrl sessionId: aSessionId [
+| client sfResponse jsonResponse statusCode |
+	client := ZnClient new.
+	client 
+		url: aFullUrl;
+		headerAt: 'Authorization' put: 'Bearer ', aSessionId;
+		headerAt: 'Accept' put: 'application/json';
+		get.
+	jsonResponse := NeoJSONReader fromString: client response entity string.
+	statusCode := client response statusLine code.
+	sfResponse := SalesforceResponse newJson: jsonResponse statusCode: statusCode.
+	^ sfResponse.
+]
+
+{ #category : 'utilities' }
 SalesforceConnector class >> performCallout: aLogin fullUrl: aFullUrl [
 	| client |
 	client := ZnClient new.
