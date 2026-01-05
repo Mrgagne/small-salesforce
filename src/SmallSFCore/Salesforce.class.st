@@ -16,7 +16,7 @@ Salesforce class >> loginUsername: aUsername password: aPassword consumerKey: aC
 	^sf
 ]
 
-{ #category : 'circuit setup' }
+{ #category : 'actions' }
 Salesforce >> connect [
 	salesforceInstance connect.
 ]
