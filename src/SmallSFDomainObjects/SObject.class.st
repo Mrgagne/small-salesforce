@@ -38,17 +38,12 @@ SObject class >> newFromDictionary: aDictionary sObjectType: aType [
 	^ aSObject.
 ]
 
-{ #category : 'accessing' }
-SObject >> assignFromDictionary: aDictionary [
-	self id: (aDictionary at: 'id' ifAbsent: [ nil ]).
-	self fields: (self pruneFields: aDictionary copy).
+{ #category : 'instance creation' }
+SObject class >> newFromResponse: aSalesforceResponse [
+	| sObject |
+	sObject := self new.
+	sObject sObjectType: ''. "get from response"
 	
-	dirtyFields := self isNew
-		ifTrue: [ (self fields) keys asSet ] 
-		ifFalse: [ Set new ].
-	
-	
-
 ]
 
 { #category : 'accessing' }
@@ -69,13 +64,13 @@ SObject >> dirtyFields [
 	^ dirtyFields ifNil: [ dirtyFields := Set new ].
 ]
 
-{ #category : 'private - accessing' }
+{ #category : 'accessing' }
 SObject >> fields [
     fields ifNil: [ fields := Dictionary new ].
     ^ fields
 ]
 
-{ #category : 'private - accessing' }
+{ #category : 'accessing' }
 SObject >> fields: aDictionary [
 	fields := aDictionary copy.
 	
@@ -93,7 +88,7 @@ SObject >> id: anId [
 	id := anId.
 ]
 
-{ #category : 'testing' }
+{ #category : 'accessing' }
 SObject >> isNew [
     ^ self id isNil
 ]
@@ -109,16 +104,6 @@ SObject >> payload [
         data at: fieldName put: val ].
         
     ^ data
-]
-
-{ #category : 'private - removing' }
-SObject >> pruneFields: aDictionary [
-	| cleanFields |
-	cleanFields := aDictionary copy.
-	cleanFields removeKey: 'attributes' ifAbsent: [ "does nothing, its gone already." ].
-	cleanFields removeKey: 'id' ifAbsent: [ "does nothing already not there" ].
-	^ cleanFields.
-	
 ]
 
 { #category : 'accessing' }

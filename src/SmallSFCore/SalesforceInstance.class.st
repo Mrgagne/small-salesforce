@@ -34,15 +34,15 @@ SalesforceInstance >> connect [
 
 { #category : 'actions' }
 SalesforceInstance >> create: aSObject [
-	| fullUrl body sfResponse |
+	| fullUrl body response json |
 	fullUrl := SalesforceSObjectUrl urlForSObject: (aSObject sObjectType) session: aSession apiVersion: self apiVersion.
 	body := aSObject payload.
 	
-	sfResponse := SalesforceConnector post: fullUrl body: body sessionId: aSession sessionId.
-	
-	(sfResponse wasSuccessful)
+	response := SalesforceConnector post: fullUrl body: body sessionId: aSession sessionId.
+	json := NeoJSONReader fromString: response entity string.
+	(response isSuccess)
 		ifTrue: [ 
-			aSObject id: sfResponse id.
+			aSObject id: (json at: 'id').
 		].
 	
 ]

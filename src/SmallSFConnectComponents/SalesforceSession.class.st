@@ -48,8 +48,8 @@ SalesforceSession >> issuedAt: anIssuedTime [
 ]
 
 { #category : 'setter' }
-SalesforceSession >> jsonResponse: aJsonResponse [
-	jsonResponse := aJsonResponse
+SalesforceSession >> jsonResponse: aResponse [
+	jsonResponse := aResponse entity string.
 ]
 
 { #category : 'accessing' }
