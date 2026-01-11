@@ -58,9 +58,9 @@ SalesforceInstance >> find: aSObject withId: anId [
 	fullUrl := SalesforceSObjectUrl urlForSObjectFind: aSObject sObjectType session: aSession apiVersion: (self apiVersion ) id: anId.
 	sfResponse := SalesforceConnector get: fullUrl sessionId: aSession sessionId.
 	
-	(sfResponse wasSuccessful)
+	(sfResponse isSuccess)
 		ifTrue: [ 
-			aSObject id: sfResponse id.
+			aSObject assignFromDictionary: sfResponse.
 		].
 ]
 

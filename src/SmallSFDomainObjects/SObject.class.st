@@ -78,6 +78,12 @@ SObject >> fields: aDictionary [
 
 ]
 
+{ #category : 'as yet unclassified' }
+SObject >> handleCreationResponse: aResponse [
+	(aResponse isSuccess) ifFalse: [ ^ self handleError: aResponse ].
+	self populateFromCreateResponse: aResponse entity string.
+]
+
 { #category : 'accessing' }
 SObject >> id [
 	^ id.
