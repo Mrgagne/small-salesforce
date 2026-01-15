@@ -25,6 +25,13 @@ SObject class >> new: aType [
 	^ sObject.
 ]
 
+{ #category : 'instance creation' }
+SObject class >> new: aType from: aResponse [
+	| sObject |
+	sObject := self new: aType.
+	"handle response..."
+]
+
 { #category : 'accessing' }
 SObject >> at: aFieldName put: aValue [
 	self fields at: aFieldName put: aValue.
