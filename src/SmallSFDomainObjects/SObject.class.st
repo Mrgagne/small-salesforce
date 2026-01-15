@@ -78,10 +78,17 @@ SObject >> fields: aDictionary [
 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'actions' }
 SObject >> handleCreationResponse: aResponse [
-	(aResponse isSuccess) ifFalse: [ ^ self handleError: aResponse ].
-	self populateFromCreateResponse: aResponse entity string.
+	| jsonString |
+	jsonString := NeoJSONReader fromString: (aResponse entity string).
+	(aResponse isError) ifTrue: [ self handleError: jsonString ].
+	"self populateFromCreateResponse: jsonString."
+]
+
+{ #category : 'error handling' }
+SObject >> handleError: jsonString [
+	^ self error: ((jsonString first) at: 'message').
 ]
 
 { #category : 'accessing' }
@@ -110,6 +117,13 @@ SObject >> payload [
         data at: fieldName put: val ].
         
     ^ data
+]
+
+{ #category : 'actions' }
+SObject >> populateFromCreateResponse: jsonString [
+	| json |
+	json := NeoJSONReader fromString: jsonString.
+	((json at: 'success') == 'true') ifFalse: [ self error: (json at: 'success')].
 ]
 
 { #category : 'accessing' }
