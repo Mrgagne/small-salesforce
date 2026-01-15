@@ -53,7 +53,7 @@ SalesforceInstance >> find: aSObject withId: anId [
 	| fullUrl response |
 	fullUrl := SalesforceSObjectUrl urlForSObjectFind: aSObject sObjectType session: aSession apiVersion: (self apiVersion ) id: anId.
 	response := SalesforceConnector get: fullUrl sessionId: aSession sessionId.
-	^ aSObject newFromFindResponse: response.
+	^ aSObject newFromResponse: response.
 ]
 
 { #category : 'initialization' }

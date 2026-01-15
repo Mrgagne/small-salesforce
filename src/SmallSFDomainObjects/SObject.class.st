@@ -17,6 +17,14 @@ SObject class >> defaultSObjectType [
 	^ nil.
 ]
 
+{ #category : 'instance creation' }
+SObject class >> new: aType [
+	| sObject |
+	sObject := self new.
+	sObject sObjectType: aType.
+	^ sObject.
+]
+
 { #category : 'accessing' }
 SObject >> at: aFieldName put: aValue [
 	self fields at: aFieldName put: aValue.
