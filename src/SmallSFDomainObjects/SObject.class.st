@@ -17,35 +17,6 @@ SObject class >> defaultSObjectType [
 	^ nil.
 ]
 
-{ #category : 'instance creation' }
-SObject class >> newFromDictionary: aDictionary [
-    | type |
-    type := self defaultSObjectType.
-    
-    (type isNil or: [ type isEmpty ]) 
-        ifTrue: [ self error: self name, ' must implement defaultSObjectType to use this constructor.' ].
-
-    ^ self newFromDictionary: aDictionary sObjectType: type
-]
-
-{ #category : 'instance creation' }
-SObject class >> newFromDictionary: aDictionary sObjectType: aType [
-	| aSObject |
-	aSObject := self new.
-	aSObject assignFromDictionary: aDictionary copy.
-	aSObject attributes: (aDictionary at: 'attributes' ifAbsent: [ nil ]).
-	aSObject sObjectType: aType.
-	^ aSObject.
-]
-
-{ #category : 'instance creation' }
-SObject class >> newFromResponse: aSalesforceResponse [
-	| sObject |
-	sObject := self new.
-	sObject sObjectType: ''. "get from response"
-	
-]
-
 { #category : 'accessing' }
 SObject >> at: aFieldName put: aValue [
 	self fields at: aFieldName put: aValue.
@@ -83,7 +54,7 @@ SObject >> handleCreationResponse: aResponse [
 	| jsonString |
 	jsonString := NeoJSONReader fromString: (aResponse entity string).
 	(aResponse isError) ifTrue: [ self handleError: jsonString ].
-	"self populateFromCreateResponse: jsonString."
+	self populateFromCreateResponse: jsonString.
 ]
 
 { #category : 'error handling' }
@@ -121,9 +92,7 @@ SObject >> payload [
 
 { #category : 'actions' }
 SObject >> populateFromCreateResponse: jsonString [
-	| json |
-	json := NeoJSONReader fromString: jsonString.
-	((json at: 'success') == 'true') ifFalse: [ self error: (json at: 'success')].
+	self id: (jsonString at: 'id').
 ]
 
 { #category : 'accessing' }

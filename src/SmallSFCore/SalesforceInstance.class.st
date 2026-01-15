@@ -50,14 +50,10 @@ SalesforceInstance >> domain: aDomain [
 
 { #category : 'actions' }
 SalesforceInstance >> find: aSObject withId: anId [
-	| fullUrl sfResponse |
+	| fullUrl response |
 	fullUrl := SalesforceSObjectUrl urlForSObjectFind: aSObject sObjectType session: aSession apiVersion: (self apiVersion ) id: anId.
-	sfResponse := SalesforceConnector get: fullUrl sessionId: aSession sessionId.
-	
-	(sfResponse isSuccess)
-		ifTrue: [ 
-			aSObject assignFromDictionary: sfResponse.
-		].
+	response := SalesforceConnector get: fullUrl sessionId: aSession sessionId.
+	^ aSObject newFromFindResponse: response.
 ]
 
 { #category : 'initialization' }
