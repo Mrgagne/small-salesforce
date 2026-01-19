@@ -45,6 +45,6 @@ Salesforce >> create: anObject [
 ]
 
 { #category : 'actions' }
-Salesforce >> find: aSObject withId: anId [
-	^ (salesforceInstance find: aSObject withId: anId).
+Salesforce >> find: classType thatIsA: sobjectType withId: anId [
+	^ (salesforceInstance find: classType thatIsA: sobjectType withId: anId).
 ]

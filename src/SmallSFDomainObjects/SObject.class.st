@@ -5,8 +5,7 @@ Class {
 		'fields',
 		'dirtyFields',
 		'sObjectType',
-		'id',
-		'attributes'
+		'id'
 	],
 	#category : 'SmallSFDomainObjects',
 	#package : 'SmallSFDomainObjects'
@@ -26,10 +25,16 @@ SObject class >> new: aType [
 ]
 
 { #category : 'instance creation' }
-SObject class >> new: aType from: aResponse [
-	| sObject |
-	sObject := self new: aType.
-	"handle response..."
+SObject class >> newFrom: aResponse [
+	| sObject json |
+	json := NeoJSONReader fromString: (aResponse entity string).
+	
+	sObject := self new.
+	sObject extractAttributes: (json at: 'attributes').
+	json removeKey: 'attributes'.
+	sObject fields: json.
+	sObject id: (json at: 'Id').
+	^ sObject.
 ]
 
 { #category : 'accessing' }
@@ -39,15 +44,14 @@ SObject >> at: aFieldName put: aValue [
 ]
 
 { #category : 'accessing' }
-SObject >> attributes: aDictionary [
-	attributes := aDictionary 
-        ifNil: [ Dictionary new ] 
-        ifNotNil: [ aDictionary copy ].
-]
-
-{ #category : 'accessing' }
 SObject >> dirtyFields [
 	^ dirtyFields ifNil: [ dirtyFields := Set new ].
+]
+
+{ #category : 'private - accessing' }
+SObject >> extractAttributes: json [
+	self sObjectType: (json at: 'type').
+	^ self.
 ]
 
 { #category : 'accessing' }
@@ -56,7 +60,7 @@ SObject >> fields [
     ^ fields
 ]
 
-{ #category : 'accessing' }
+{ #category : 'private - accessing' }
 SObject >> fields: aDictionary [
 	fields := aDictionary copy.
 	

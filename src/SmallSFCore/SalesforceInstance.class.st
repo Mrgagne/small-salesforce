@@ -49,11 +49,20 @@ SalesforceInstance >> domain: aDomain [
 ]
 
 { #category : 'actions' }
+SalesforceInstance >> find: classType thatIsA: sobjectType withId: anId [
+	| fullUrl response aSObject |
+	fullUrl := SalesforceSObjectUrl urlForSObjectFind: sobjectType session: aSession apiVersion: (self apiVersion ) id: anId.
+	response := SalesforceConnector get: fullUrl sessionId: aSession sessionId.
+	aSObject := SObject newFrom: response.
+	^ aSObject.
+]
+
+{ #category : 'actions' }
 SalesforceInstance >> find: aSObject withId: anId [
 	| fullUrl response |
 	fullUrl := SalesforceSObjectUrl urlForSObjectFind: aSObject sObjectType session: aSession apiVersion: (self apiVersion ) id: anId.
 	response := SalesforceConnector get: fullUrl sessionId: aSession sessionId.
-	^ aSObject newFromResponse: response.
+	^ aSObject newFrom: response.
 ]
 
 { #category : 'initialization' }

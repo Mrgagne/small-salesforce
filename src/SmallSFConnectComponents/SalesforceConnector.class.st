@@ -16,7 +16,7 @@ SalesforceConnector class >> connectWithLogin: aLogin fullUrl: aFullUrl [
 { #category : 'utilities' }
 SalesforceConnector class >> get: aFullUrl sessionId: aSessionId [
 | response |
-	response := (ZnResponse new)
+	response := (ZnClient new)
 		url: aFullUrl;
 		headerAt: 'Authorization' put: 'Bearer ', aSessionId;
 		headerAt: 'Accept' put: 'application/json';
