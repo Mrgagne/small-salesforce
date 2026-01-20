@@ -9,7 +9,7 @@ Class {
 SalesforceConnector class >> connectWithLogin: aLogin fullUrl: aFullUrl [
 	| session response |
 	response := self performCallout: aLogin fullUrl: aFullUrl.
-	session := SalesforceSession newFromJson: response.
+	session := SalesforceSession newFromResponse: response.
 	^ session.
 ]
 

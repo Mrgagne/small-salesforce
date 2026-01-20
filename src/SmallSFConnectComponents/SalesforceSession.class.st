@@ -5,31 +5,40 @@ Class {
 		'sessionId',
 		'instanceUrl',
 		'tokenType',
-		'issuedAt',
-		'jsonResponse'
+		'issuedAt'
 	],
 	#category : 'SmallSFConnectComponents',
 	#package : 'SmallSFConnectComponents'
 }
 
 { #category : 'instance creation' }
-SalesforceSession class >> newFromJson: aJsonResponse [
-	| session | 
+SalesforceSession class >> newFromResponse: aResponse [
+	| session json | 
+	json := NeoJSONReader fromString: (aResponse entity string).
+	
 	session := self new.
-	session jsonResponse: aJsonResponse.
-	session destructureJson.
-	^session
+	(aResponse isError) ifTrue: [ session handleError: json ].
+	session handleSessionCreation: json.
+	^ session.
 ]
 
-{ #category : 'utilities' }
-SalesforceSession >> destructureJson [
-	| json |
-	json := NeoJSONReader fromString: jsonResponse.
+{ #category : 'private - utilities' }
+SalesforceSession >> destructureJson: json [
 	self sessionId: (json at: 'access_token').
 	self instanceUrl: (json at: 'instance_url').
 	self issuedAt: (json at: 'issued_at').
 	
-	^self
+	^ self
+]
+
+{ #category : 'error handling' }
+SalesforceSession >> handleError: json [
+	self error: (json at: 'error'), ' ', (json at: 'error_description').
+]
+
+{ #category : 'private - utilities' }
+SalesforceSession >> handleSessionCreation: json [
+	self destructureJson: json
 ]
 
 { #category : 'accessing' }
@@ -42,14 +51,14 @@ SalesforceSession >> instanceUrl: anInstanceUrl [
 	instanceUrl := anInstanceUrl
 ]
 
+{ #category : 'accessing' }
+SalesforceSession >> issuedAt [ 
+	^ issuedAt.
+]
+
 { #category : 'private - accessing' }
 SalesforceSession >> issuedAt: anIssuedTime [
 	issuedAt := anIssuedTime 
-]
-
-{ #category : 'setter' }
-SalesforceSession >> jsonResponse: aResponse [
-	jsonResponse := aResponse entity string.
 ]
 
 { #category : 'accessing' }
