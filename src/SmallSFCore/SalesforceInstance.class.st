@@ -17,7 +17,7 @@ SalesforceInstance class >> newUsername: aUsername password: aPassword consumerK
 	anInstance := self new.
 	anInstance domain: aDomain.
 	anInstance loginUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret securityToken: aSecurityToken.
-	^anInstance.
+	^ anInstance.
 ]
 
 { #category : 'private - accessing' }
