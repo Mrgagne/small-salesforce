@@ -1,8 +1,8 @@
 Class {
 	#name : 'SalesforceLoginUrl',
 	#superclass : 'SalesforceUrl',
-	#category : 'SmallSFConnectComponents',
-	#package : 'SmallSFConnectComponents'
+	#category : 'SmallSFHTTP',
+	#package : 'SmallSFHTTP'
 }
 
 { #category : 'private - accessing' }

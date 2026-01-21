@@ -1,8 +1,8 @@
 Class {
 	#name : 'SalesforceLogin',
 	#superclass : 'Object',
-	#category : 'SmallSFLoginComponents',
-	#package : 'SmallSFLoginComponents'
+	#category : 'SmallSFHTTP',
+	#package : 'SmallSFHTTP'
 }
 
 { #category : 'accessing' }

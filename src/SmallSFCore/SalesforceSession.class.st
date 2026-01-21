@@ -7,8 +7,8 @@ Class {
 		'tokenType',
 		'issuedAt'
 	],
-	#category : 'SmallSFConnectComponents',
-	#package : 'SmallSFConnectComponents'
+	#category : 'SmallSFCore',
+	#package : 'SmallSFCore'
 }
 
 { #category : 'instance creation' }

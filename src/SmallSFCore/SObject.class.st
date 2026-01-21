@@ -7,8 +7,8 @@ Class {
 		'sObjectType',
 		'id'
 	],
-	#category : 'SmallSFDomainObjects',
-	#package : 'SmallSFDomainObjects'
+	#category : 'SmallSFCore',
+	#package : 'SmallSFCore'
 }
 
 { #category : 'helper' }

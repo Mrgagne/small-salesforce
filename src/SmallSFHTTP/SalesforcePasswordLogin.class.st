@@ -8,8 +8,8 @@ Class {
 		'consumerSecret',
 		'securityToken'
 	],
-	#category : 'SmallSFLoginComponents',
-	#package : 'SmallSFLoginComponents'
+	#category : 'SmallSFHTTP',
+	#package : 'SmallSFHTTP'
 }
 
 { #category : 'instance creation' }
