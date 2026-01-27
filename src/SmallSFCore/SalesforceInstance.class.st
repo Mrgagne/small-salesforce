@@ -13,7 +13,7 @@ Class {
 { #category : 'instance creation' }
 SalesforceInstance class >> new: aLogin [
 	| anInstance |
-	anInstance := SalesforceInstance new.
+	anInstance := self new.
 	"pass login to gateway and tell it to login"
 	^ anInstance.
 ]
