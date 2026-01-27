@@ -10,6 +10,14 @@ Class {
 	#package : 'SmallSFCore'
 }
 
+{ #category : 'instance creation' }
+SalesforceInstance class >> new: aLogin [
+	| anInstance |
+	anInstance := SalesforceInstance new.
+	"pass login to gateway and tell it to login"
+	^ anInstance.
+]
+
 { #category : 'private - accessing' }
 SalesforceInstance >> apiVersion [
 	^ apiVersion ifNil: [ ^ 'v64.0' ].
