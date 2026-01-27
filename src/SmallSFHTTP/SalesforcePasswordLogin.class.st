@@ -12,18 +12,6 @@ Class {
 	#package : 'SmallSFHTTP'
 }
 
-{ #category : 'instance creation' }
-SalesforcePasswordLogin class >> newUsername: aUsername password: aPassword consumerKey: aConsumerKey consumerSecret: aConsumerSecret securityToken: aSecurityToken [
-	|login|
-	login := self new.
-	login username: aUsername.
-	login password: aPassword.
-	login consumerKey: aConsumerKey.
-	login consumerSecret: aConsumerSecret.
-	login securityToken: aSecurityToken.
-	^login
-]
-
 { #category : 'accessing' }
 SalesforcePasswordLogin >> consumerKey: aConsumerKey [
 	consumerKey := aConsumerKey
@@ -34,7 +22,7 @@ SalesforcePasswordLogin >> consumerSecret: aConsumerSecret [
 	consumerSecret := aConsumerSecret
 ]
 
-{ #category : 'accessing' }
+{ #category : 'private - accessing' }
 SalesforcePasswordLogin >> fullPassword [
 	^ securityToken
 		ifNil: [ password ]
