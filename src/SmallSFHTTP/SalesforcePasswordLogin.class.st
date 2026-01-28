@@ -42,7 +42,7 @@ SalesforcePasswordLogin >> requestFields [
 		'client_secret' -> consumerSecret.
 		'username' -> username.
 		'password' -> self fullPassword.
-	 } asDictionary 
+	 } asDictionary.
 ]
 
 { #category : 'accessing' }
